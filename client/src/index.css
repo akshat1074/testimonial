@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* shadcn/ui semantic tokens — HSL triplets (no hsl() wrapper, so
+       Tailwind's <alpha-value> opacity modifiers work, e.g. bg-primary/50).
+       Values are our own ink/paper/seal brand palette, not shadcn's
+       default slate theme — see tailwind.config.js for the mapping. */
+    --background: 222 27% 9%;      /* ink-900 */
+    --foreground: 210 20% 96%;     /* paper-100 */
+    --card: 222 22% 13%;           /* ink-800 */
+    --card-foreground: 210 20% 96%;
+    --popover: 222 22% 13%;
+    --popover-foreground: 210 20% 96%;
+    --primary: 38 61% 47%;         /* seal-500 */
+    --primary-foreground: 222 27% 7%;
+    --secondary: 222 20% 20%;      /* ink-700 */
+    --secondary-foreground: 210 20% 96%;
+    --muted: 222 20% 20%;
+    --muted-foreground: 218 12% 76%; /* paper-400 */
+    --accent: 174 51% 36%;         /* voice-500 */
+    --accent-foreground: 210 20% 96%;
+    --destructive: 4 60% 59%;      /* danger */
+    --destructive-foreground: 210 20% 96%;
+    --border: 223 19% 24%;         /* ink-600 */
+    --input: 223 19% 24%;
+    --ring: 38 66% 60%;            /* seal-400 */
+    --radius: 0.65rem;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-ink-900 text-paper-100 font-sans antialiased;
+  }
+  /* Keyboard focus must stay visible everywhere — including on the
+     light-mode wall/widget surfaces where the default ring is invisible. */
+  :focus-visible {
+    outline: 2px solid theme("colors.seal.400");
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      theme("colors.paper.400") 0%,
+      theme("colors.paper.100") 50%,
+      theme("colors.paper.400") 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
