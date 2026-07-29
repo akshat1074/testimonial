@@ -83,9 +83,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        display: ["Fraunces", "ui-serif", "Georgia", "serif"],
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        mono: ["\"IBM Plex Mono\"", "ui-monospace", "SFMono-Regular", "monospace"],
+        display: ["\"Plus Jakarta Sans\"", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["\"Plus Jakarta Sans\"", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["\"JetBrains Mono\"", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       boxShadow: {
         seal: "0 0 0 1px rgba(192,138,46,0.35), 0 8px 24px -8px rgba(192,138,46,0.35)",
