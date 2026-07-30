@@ -90,7 +90,7 @@ export function DashboardPage() {
   const count = useMemo(() => items?.length ?? null, [items]);
 
   return (
-    <div className="min-h-screen bg-ink-900 px-4 py-10 sm:px-8">
+    <div className="min-h-screen bg-ink-900 px-4 pb-10 pt-20 sm:px-8">
       <div className="mx-auto max-w-4xl">
         <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -337,10 +337,21 @@ function SettingsSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (v
                 <pre className="overflow-x-auto rounded-lg border border-ink-600 bg-ink-900 p-3 text-xs text-voice-400">
                   {embedSnippet}
                 </pre>
-                <p className="mt-2 text-xs text-paper-400">
-                  Paste this into any HTML page. See <code className="text-paper-200">widget-demo.html</code>{" "}
-                  in the repo for a working example. API base: <code className="text-paper-200">{apiUrl}</code>
-                </p>
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  <p className="text-xs text-paper-400">
+                    Paste this into any HTML page. See{" "}
+                    <code className="text-paper-200">widget-demo.html</code> in the repo for a
+                    working example. API base: <code className="text-paper-200">{apiUrl}</code>
+                  </p>
+                  <a
+                    href={`/embed?accent=${encodeURIComponent(settings.accent_color)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-shrink-0 whitespace-nowrap rounded-md border border-seal-500/30 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-seal-400 hover:bg-seal-500/10"
+                  >
+                    Preview →
+                  </a>
+                </div>
               </div>
             </div>
           )}
