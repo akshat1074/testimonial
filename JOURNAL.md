@@ -1,62 +1,37 @@
-# JOURNAL.md
+Copy this file into your repo as `JOURNAL.md` and fill it in **as you work**, not at the end. Short honest notes beat polished essays. Bullet points are fine. We read this before we read your code.
 
-> **Not the real template.** The actual `JOURNAL_TEMPLATE.md` linked in
-> the assignment is behind Google sign-in, so it couldn't be fetched
-> automatically. Replace this file with that template, filled in with
-> your own reasoning — the sections below are a placeholder scaffold
-> based on what the brief says the journal should cover, not a
-> substitute for it.
->
-> This also isn't something to fill in from this build session alone:
-> the brief evaluates *your* decisions and *your* agent collaboration.
-> If you use this codebase as a starting point, the honest version of
-> this journal describes what you changed, questioned, or would have
-> done differently — not a narration of what an assistant already did.
+One rule: **be honest.** "AI wrote most of this and I fixed two bugs" is a fine answer if it's true. We check the journal against the code and against your interview answers, and a made-up journal shows fast.
 
-## Decisions I made where the brief was unspecified
+## 1. Prioritization
 
-_(e.g. iframe vs script-tag embed, dark/light split between app and
-wall, single settings row instead of a businesses table, etc. — state
-the call and the one-line reason.)_
+- What did you decide to build, in what order, and why? First I plan and build backend APIs and schema structure and then UI/Frontend according to the backend APIs.The order was in the form of priority P0,P1 and P2.
+- What did you deliberately cut or skip? Why those? The photo upload feature was cut because it was optional and you have to config bucket and storage for it.I tried to implement it but it was not working as expected.
 
--
 
-## What I built first, and why
+## 2. Key decisions
 
-_(The brief says what you build first says as much as the code. Was it
-really the P0 loop end-to-end before anything else?)_
+For each decision that shaped the project (aim for 3–6), one short block:
 
--
+- **Decision:** what you chose (e.g. how the widget embeds, what happens to rejected testimonials, DB choice).Show I choose iframe for embedding the widget because I have used it previously in my subconcious project and its easy to prevent CORS issues. The rejected still shows in rejected colums and I choose supabase for DB as I want to host the project on vercel 
+- **Options:** what else you considered. I considered using local storage for DB but it was not scalable and also not secure. I also considered using firebase for DB but I have worked with supabase so.For rejected testimonials I choose to show them in rejected colums and not delete them because it might be useful for future reference.  
+- **Why:** why you picked this one. I choose iframe because it is easy to prevent CORS issues. I choose supabase because it is easy to use and it is free for small projects. I choose to show rejected testimonials in rejected colums because it might be useful for future reference.
 
-## What I cut, and why
+Include the calls you made where the brief was silent.
 
-_(Script-tag embed? Automated tests? Something else? Be specific about
-the tradeoff, not just "ran out of time.")_
+## 3. Working with AI agents
 
--
+- **Tools and models used:** which agent/editor (Claude Code, Codex, Cursor, Cline, aider, …), which models, and for what kind of work. I used claude web for the development of the project.
+- **How you split the work:** what tasks you gave the agent, what you kept for yourself, and why. I gave claude web the task of generating the code for the project andI orchesfetewd  I reviewed and tested the code.
+- **Your agent setup:** if you wrote instruction/rules files, skills, or commands (they must be committed — see the brief), say briefly what each is for and what problem it solved. If you used none, say so here. claude.me attached
+- **Your 3–5 most important prompts:** paste them and say why each worked — or didn't. 
+- **At least one time AI was wrong:** what it produced, how you noticed, what you did. If AI was never wrong in 6+ hours of use, say so — and expect us to ask about it. - The UX part terrible by claude , I had to navigate through URL and no button were there to navigate. I would make better UX added photo feature but again in 30min of usuage the tokens were used up.
+- **Something you rejected:** AI output you threw away or heavily rewrote, and why. - The URL navigation and UX & UI it was classic AI slop
 
-## Agent collaboration
+## 4. Verification
 
-_(This is weighted heavily in evaluation — be concrete.)_
+- How did you convince yourself the code actually works? Be specific: what did you run, click, test, or inspect? I manual run whole run and tested each and every feature.
+- What do you know is still broken or fragile? The photo upload feature is not working as expected. I tried to implement it but it was not working.
 
-- Which agent(s)/tools did you use, for which parts?
-- How did you split work into tasks/prompts?
-- Where did you correct or reject what the agent produced, and why?
-- Anything you wrote yourself, or deliberately didn't hand to an agent?
+## 5. If I had 5 more hours
 
-## How I verified things actually work
-
-_(Manual walkthrough steps, what you checked, anything that broke and
-how you found it.)_
-
--
-
-## Time log
-
-| Day | Hours | What |
-|---|---|---|
-| | | |
-
-## If I had another day
-
--
+- What would you do next, in order? I would implement the photo upload feature and also add some more features like email notifications and also add some more features like email notifications and auth and also work on the UX and UI. to make like proper product.
