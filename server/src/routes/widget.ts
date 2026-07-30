@@ -1,11 +1,21 @@
 import { Router } from "express";
 import { supabase } from "../lib/supabase";
-import { asyncHandler, ApiError } from "../middleware/errorHandler";
+import { asyncHandler, ApiError, assertNoSupabaseError } from "../middleware/errorHandler";
 import { publicReadRateLimit } from "../middleware/rateLimit";
 
 export const widgetRouter = Router();
 
+// Everything in this file is mounted with permissive CORS in app.ts
+// (Access-Control-Allow-Origin: *) — that's the whole point of an embed:
+// a script or iframe running on a *different* business's website needs
+// to call these endpoints from an origin we can't predict in advance.
+// Nothing sensitive (email, rejected content) is ever returned here.
 
+/**
+ * GET /api/widget/testimonials
+ * Same shape as /api/testimonials/approved, capped and simplified for
+ * embed use — no pagination params, just "give me the latest N".
+ */
 widgetRouter.get(
   "/testimonials",
   publicReadRateLimit,
@@ -19,7 +29,7 @@ widgetRouter.get(
       .order("created_at", { ascending: false })
       .limit(limit);
 
-    if (error) throw new ApiError(500, "Could not load testimonials");
+    assertNoSupabaseError(error, "Could not load testimonials");
     res.json({ data: data ?? [] });
   })
 );
@@ -41,7 +51,7 @@ widgetRouter.get(
       .eq("id", 1)
       .single();
 
-    if (error) throw new ApiError(500, "Could not load widget settings");
+    assertNoSupabaseError(error, "Could not load widget settings");
     res.json({ data });
   })
 );

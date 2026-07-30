@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { supabase } from "../lib/supabase";
-import { asyncHandler, ApiError } from "../middleware/errorHandler";
+import { asyncHandler, ApiError, assertNoSupabaseError } from "../middleware/errorHandler";
 import type { Sentiment } from "../types/testimonial";
 
 export const aiRouter = Router();
@@ -35,7 +35,7 @@ aiRouter.post(
       .eq("id", id)
       .maybeSingle();
 
-    if (fetchError) throw new ApiError(500, "Could not load testimonial");
+    assertNoSupabaseError(fetchError, "Could not load testimonial");
     if (!testimonial) throw new ApiError(404, "Testimonial not found");
 
     const sentiment = await classifySentiment(testimonial.content, apiKey);
@@ -47,7 +47,7 @@ aiRouter.post(
       .select()
       .single();
 
-    if (error) throw new ApiError(500, "Could not save sentiment");
+    assertNoSupabaseError(error, "Could not save sentiment");
     res.json({ data });
   })
 );

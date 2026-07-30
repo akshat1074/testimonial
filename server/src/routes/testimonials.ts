@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { supabase } from "../lib/supabase";
-import { asyncHandler, ApiError } from "../middleware/errorHandler";
+import { asyncHandler, ApiError, assertNoSupabaseError } from "../middleware/errorHandler";
 import {
   newTestimonialSchema,
   paginationSchema,
@@ -40,7 +40,7 @@ testimonialsRouter.post(
       .gte("created_at", since)
       .limit(1);
 
-    if (dupeError) throw new ApiError(500, "Could not validate submission");
+    assertNoSupabaseError(dupeError, "Could not validate submission");
     if (recentDupes && recentDupes.length > 0) {
       throw new ApiError(409, "You already submitted this testimonial. Thanks — it's in review!");
     }
@@ -59,7 +59,7 @@ testimonialsRouter.post(
       .select()
       .single();
 
-    if (error) throw new ApiError(500, "Could not save your testimonial");
+    assertNoSupabaseError(error, "Could not save your testimonial");
     res.status(201).json({ data });
   })
 );
@@ -88,7 +88,7 @@ testimonialsRouter.get(
       .order("created_at", { ascending: false })
       .range(from, to);
 
-    if (error) throw new ApiError(500, "Could not load testimonials");
+    assertNoSupabaseError(error, "Could not load testimonials");
 
     const total = count ?? 0;
     const response: Paginated<PublicTestimonial> = {

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { supabase } from "../lib/supabase";
-import { asyncHandler, ApiError } from "../middleware/errorHandler";
+import { asyncHandler, ApiError, assertNoSupabaseError } from "../middleware/errorHandler";
 import { moderationUpdateSchema, validateBody } from "../middleware/validate";
 import type { TestimonialStatus } from "../types/testimonial";
 
@@ -35,7 +35,7 @@ moderationRouter.get(
     }
 
     const { data, error } = await query;
-    if (error) throw new ApiError(500, "Could not load submissions");
+    assertNoSupabaseError(error, "Could not load submissions");
     res.json({ data });
   })
 );
@@ -60,7 +60,7 @@ moderationRouter.patch(
       .select()
       .maybeSingle();
 
-    if (error) throw new ApiError(500, "Could not update submission");
+    assertNoSupabaseError(error, "Could not update submission");
     if (!data) throw new ApiError(404, "Submission not found");
 
     res.json({ data });
@@ -82,7 +82,7 @@ moderationRouter.delete(
       .delete({ count: "exact" })
       .eq("id", id);
 
-    if (error) throw new ApiError(500, "Could not delete submission");
+    assertNoSupabaseError(error, "Could not delete submission");
     if (!count) throw new ApiError(404, "Submission not found");
 
     res.status(204).send();

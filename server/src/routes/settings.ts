@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { supabase } from "../lib/supabase";
-import { asyncHandler, ApiError } from "../middleware/errorHandler";
+import { asyncHandler, ApiError, assertNoSupabaseError } from "../middleware/errorHandler";
 import { settingsUpdateSchema, validateBody } from "../middleware/validate";
 
 export const settingsRouter = Router();
@@ -10,7 +10,7 @@ settingsRouter.get(
   "/",
   asyncHandler(async (req, res) => {
     const { data, error } = await supabase.from("settings").select("*").eq("id", 1).single();
-    if (error) throw new ApiError(500, "Could not load settings");
+    assertNoSupabaseError(error, "Could not load settings");
     res.json({ data });
   })
 );
@@ -27,7 +27,7 @@ settingsRouter.patch(
       .select()
       .single();
 
-    if (error) throw new ApiError(500, "Could not update settings");
+    assertNoSupabaseError(error, "Could not update settings");
     res.json({ data });
   })
 );
