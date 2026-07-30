@@ -5,17 +5,7 @@ import { publicReadRateLimit } from "../middleware/rateLimit";
 
 export const widgetRouter = Router();
 
-// Everything in this file is mounted with permissive CORS in app.ts
-// (Access-Control-Allow-Origin: *) — that's the whole point of an embed:
-// a script or iframe running on a *different* business's website needs
-// to call these endpoints from an origin we can't predict in advance.
-// Nothing sensitive (email, rejected content) is ever returned here.
 
-/**
- * GET /api/widget/testimonials
- * Same shape as /api/testimonials/approved, capped and simplified for
- * embed use — no pagination params, just "give me the latest N".
- */
 widgetRouter.get(
   "/testimonials",
   publicReadRateLimit,
